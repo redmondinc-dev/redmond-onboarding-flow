@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Redmond Associate Onboarding Flow</title>
+<script>
+// ============================================================
+//  TASK DATA — Edit this section to add, change, or remove tasks
+//
+//  Each task needs:
+//    phase : "pre" | "d0" | "2wk" | "30d" | "90d"
+//    team  : "hr"  | "cult" | "it"  | "tl"
+//    title : the main task text (required)
+//    note  : smaller italics line below the title (optional, use "" to omit)
+//    flag  : true = shows an orange warning badge (optional, omit or use false)
+//    flagLabel : text on the badge, e.g. "⚠ High Priority" (optional, defaults to "⚠ Note")
+//
+//  PHASES
+//    "pre"  = Pre-Start (offer accepted to Day Zero)
+//    "d0"   = Day Zero (first day)
+//    "2wk"  = First Two Weeks
+//    "30d"  = First 30 Days
+//    "90d"  = First 90 Days
+//
+//  TEAMS
+//    "hr"   = HR Team
+//    "cult" = Culture Team
+//    "it"   = IT Team
+//    "tl"   = Team Leader / Admin Group
+// ============================================================
+
+const TASKS = [
+
+  // ── PRE-START ─────────────────────────────────────────────
+
+  // HR
+  { phase: "pre", team: "hr", title: "Monitor offer letter signing", note: "Manual today — target: automated trigger" },
+  { phase: "pre", team: "hr", title: "Confirm start date with Team Lead", note: "" },
+  { phase: "pre", team: "hr", title: "Create associate in Paylocity, Navigator, and Time", note: "" },
+  { phase: "pre", team: "hr", title: "Notify IT via group chat", note: "Include start date & job type" },
+  { phase: "pre", team: "hr", title: "Send welcome / credentials email", note: "CC: Team Lead + Day Zero group" },
+  { phase: "pre", team: "hr", title: "Initiate I-9, W-4, and legal documents", note: "E-signature preferred" },
+  { phase: "pre", team: "hr", title: "Send benefits enrollment info", note: "30-day window — some associates miss this", flag: true, flagLabel: "⚠ High Priority" },
+ 
+  // Culture
+  { phase: "pre", team: "cult", title: "Receive offer acceptance notification", note: "Currently via CC email — target: auto-trigger" },
+  { phase: "pre", team: "cult", title: "Prepare Day Zero itinerary", note: "Parking map, rendezvous point, schedule" },
+  { phase: "pre", team: "cult", title: "Obtain associate's phone number", note: "" },
+  { phase: "pre", team: "cult", title: "Send personalized welcome text", note: "Date, time, parking, dress code, what to bring" },
+  { phase: "pre", team: "cult", title: "Send Day Zero calendar invite", note: "CC Team Lead on invite" },
+  { phase: "pre", team: "cult", title: "Prepare swag bag", note: "" },
+  { phase: "pre", team: "cult", title: "Assign Day Zero facilitator", note: "Culture team or trained local facilitator, use standard powerpoint" },
+
+  // IT
+  { phase: "pre", team: "it", title: "Receive new associate notification", note: "From HR via group chat" },
+  { phase: "pre", team: "it", title: "Set up login ID & Password, and Redmond email", note: "Includes MS365, Communicate to Team Leader" },
+  { phase: "pre", team: "it", title: "Add associate to Paylocity SSO Group", note: "" },
+  { phase: "pre", team: "it", title: "No further action from IT UNLESS Team Leader makes a request", note: "The following items are by team leader request" },
+  { phase: "pre", team: "it", title: "Order computer (PC or Mac per Team Lead)", note: "Target: auto-triggered by job type" },
+  { phase: "pre", team: "it", title: "Order monitor + peripherals (per Team Lead)", note: "Use templated equipment list per role" },
+  { phase: "pre", team: "it", title: "Set additional email aliases (per Team Lead)", note: "" },
+  { phase: "pre", team: "it", title: "Set up GoTo phone system (per Team Lead)", note: "" },
+  { phase: "pre", team: "it", title: "Confirm Teams installed & configured on device", note: "" },
+  { phase: "pre", team: "it", title: "Confirm all equipment set up before Day Zero", note: "" },
+  { phase: "pre", team: "it", title: "Document equipment in Asset Tracking system", note: "" },
+
+  // Team Leader
+  { phase: "pre", team: "tl", title: "Send Team Welcome Email", note: "" },
+  { phase: "pre", team: "tl", title: "Notify IT to order computer", note: "Specify PC vs Mac; do weeks in advance" },
+  { phase: "pre", team: "tl", title: "Order workstation equipment", note: "Desk, chair, monitor — use templated list" },
+  { phase: "pre", team: "tl", title: "Order role-specific supplies", note: "Aprons (stores), books (CX), tools (production)" },
+  { phase: "pre", team: "tl", title: "Set up team-specific software", note: "" },
+  { phase: "pre", team: "tl", title: "Create training schedule", note: "" },
+  { phase: "pre", team: "tl", title: "Add associate to Outlook calendar invites", note: "e.g Team meetings, etc." },
+  { phase: "pre", team: "tl", title: "Confirm workspace is fully ready", note: "" },
+
+  // ── DAY ZERO ──────────────────────────────────────────────
+
+  // HR
+  { phase: "d0", team: "hr", title: "Be available for HR questions", note: "" },
+  { phase: "d0", team: "hr", title: "HR intro: benefits, FMLA, PTO, policies", note: "HR slide in Day Zero deck" },
+  { phase: "d0", team: "hr", title: "Verify Paylocity login works", note: "" },
+  { phase: "d0", team: "hr", title: "Communicate 30-day insurance enrollment window", note: "Associates sometimes miss this deadline", flag: true, flagLabel: "⚠ High Priority" },
+  { phase: "d0", team: "hr", title: "Distribute benefits guide", note: "" },
+
+  // Culture
+  { phase: "d0", team: "cult", title: "Welcome associate; deliver swag bag", note: "" },
+  { phase: "d0", team: "cult", title: "Conduct full facility tour", note: "Office, warehouse, store, restrooms, gym" },
+  { phase: "d0", team: "cult", title: "Deliver Mission, Vision & Values presentation", note: "Standardized Day Zero deck with benefits slides" },
+  { phase: "d0", team: "cult", title: "Present Redmond infographic / sister companies tree", note: "" },
+  { phase: "d0", team: "cult", title: "Walk through Teams setup on phone & computer", note: "Pin key channels" },
+  { phase: "d0", team: "cult", title: "Demo clock-in process in Time", note: "" },
+  { phase: "d0", team: "cult", title: "Demo building door access", note: "" },
+  { phase: "d0", team: "cult", title: "Review employee discounts & associate orders", note: "" },
+  { phase: "d0", team: "cult", title: "Team lunch", note: "" },
+  { phase: "d0", team: "cult", title: "Return completed Day Zero checklist to HR", note: "" },
+
+  // IT
+  { phase: "d0", team: "it", title: "Available for tech support / troubleshooting", note: "" },
+  { phase: "d0", team: "it", title: "Verify associate can log into all systems", note: "Email, Teams, Paylocity" },
+  { phase: "d0", team: "it", title: "Configure door lock access based on location", note: "Send door access system email" },
+  { phase: "d0", team: "it", title: "Configure Teams on personal device", note: "" },
+
+  // Team Leader
+  { phase: "d0", team: "tl", title: "Assist with Day Zero as needed", note: "" },
+  { phase: "d0", team: "tl", title: "Introduce associate to the team", note: "" },
+  { phase: "d0", team: "tl", title: "Confirm access to team-specific tools", note: "" },
+  { phase: "d0", team: "tl", title: "Confirm setup of team-specific apps", note: "" },
+
+  // ── FIRST TWO WEEKS ───────────────────────────────────────
+
+  // HR
+  { phase: "2wk", team: "hr", title: "Confirm I-9 / legal docs fully completed", note: "" },
+  { phase: "2wk", team: "hr", title: "Verify correct clock-in usage", note: "" },
+  { phase: "2wk", team: "hr", title: "Send insurance enrollment reminder", note: "2-week check-in; 30-day window in progress", flag: true, flagLabel: "⚠ Deadline Alert" },
+  { phase: "2wk", team: "hr", title: "Confirm direct deposit established", note: "" },
+  { phase: "2wk", team: "hr", title: "Address any payroll questions", note: "" },
+
+  // Culture
+  { phase: "2wk", team: "cult", title: "Schedule & conduct 2-week follow-up meeting", note: "" },
+  { phase: "2wk", team: "cult", title: "Review benefits enrollment status", note: "Remind of 30-day deadline" },
+  { phase: "2wk", team: "cult", title: "Personal invitations to programs", note: "Discovery Seminar, 7-Habits, Leadership Retreat" },
+  { phase: "2wk", team: "cult", title: "Confirm Redmond 101 sign-up", note: "Redmond University — first course" },
+
+  // IT
+  { phase: "2wk", team: "it", title: "Resolve outstanding access / equipment issues", note: "" },
+  { phase: "2wk", team: "it", title: "Confirm all role-specific apps installed", note: "" },
+
+  // Team Leader
+  { phase: "2wk", team: "tl", title: "Attend 2-week follow-up meeting", note: "" },
+  { phase: "2wk", team: "tl", title: "Confirm safety training scheduled & underway", note: "" },
+  { phase: "2wk", team: "tl", title: "Confirm job-specific training in progress", note: "" },
+  { phase: "2wk", team: "tl", title: "Informal check-in on associate adjustment", note: "" },
+  { phase: "2wk", team: "tl", title: "Confirm time system used correctly", note: "" },
+  { phase: "2wk", team: "tl", title: "Review role-required certifications", note: "" },
+
+  // ── FIRST 30 DAYS ─────────────────────────────────────────
+
+  // HR
+  { phase: "30d", team: "hr", title: "Verify insurance enrollment completed", note: "30-day window closes — flag any non-enrollment", flag: true, flagLabel: "⚠ Hard Deadline" },
+  { phase: "30d", team: "hr", title: "Confirm all HR documents in employee file", note: "" },
+  { phase: "30d", team: "hr", title: "Record job certifications in Data Store", note: "" },
+
+  // Culture
+  { phase: "30d", team: "cult", title: "Confirm Redmond 101 completion", note: "" },
+  { phase: "30d", team: "cult", title: "Follow up on seminar registrations", note: "" },
+  { phase: "30d", team: "cult", title: "Gather Day Zero experience feedback", note: "" },
+
+  // IT
+  { phase: "30d", team: "it", title: "Resolve any outstanding IT onboarding tickets", note: "" },
+
+  // Team Leader
+  { phase: "30d", team: "tl", title: "Record safety training certs in Data Store", note: "" },
+  { phase: "30d", team: "tl", title: "Confirm job certifications submitted & recorded", note: "" },
+  { phase: "30d", team: "tl", title: "Check team orientation & training completion", note: "" },
+
+  // ── FIRST 90 DAYS ─────────────────────────────────────────
+
+  // HR
+  { phase: "90d", team: "hr", title: "Confirm all role certifications on file", note: "" },
+  { phase: "90d", team: "hr", title: "Review part-time to full-time eligibility", note: "If applicable: trigger new offer letter + 2nd onboarding" },
+ 
+  // Culture
+  { phase: "90d", team: "cult", title: "Verify program attendance / scheduling", note: "Discovery, 7-Habits, Leadership Retreat" },
+  { phase: "90d", team: "cult", title: "Confirm ongoing Redmond University access", note: "" },
+
+  // IT
+  { phase: "90d", team: "it", title: "Resolve any outstanding IT onboarding tickets", note: "" },
+
+  // Team Leader
+  { phase: "90d", team: "tl", title: "Complete team orientation & training milestones", note: "" },
+  { phase: "90d", team: "tl", title: "Discovery check-in", note: "" },
+  { phase: "90d", team: "tl", title: "Confirm all seminars are scheduled", note: "Discovery, 7-Habits, Leadership Retreat" },
+  { phase: "90d", team: "tl", title: "Resolve any remaining onboarding gaps", note: "" },
+  { phase: "90d", team: "tl", title: "Part-time to full-time: initiate new offer letter", note: "Triggers second onboarding workflow" },
+
+];
+
+// ============================================================
+//  PHASE NOTES — Footer note shown at the bottom of each phase.
+//  Edit the text between the quotes. Use "" to show no note.
+// ============================================================
+
+const PHASE_NOTES = {
+  pre:  "<strong>Trigger:</strong> Offer letter signed &rarr; Automated notifications sent simultaneously to HR, IT, Culture Team, and Team Leader. Currently manual via CC'd emails — a key pain point to address with a system solution.",
+  d0:   "<strong>Core Day Zero elements (universal):</strong> Culture intro (values, mission, vision) &bull; HR setup (Paylocity, Navigator, Time) &bull; IT access (Teams, email, building entry) &bull; Facility tour &bull; Team lunch. Location-specific variants are permitted around this universal core.",
+  "2wk":"<strong>2-Week Follow-up items (Culture/HR-led):</strong> Benefits check &bull; Time & payroll confirmation &bull; Sign-ups for Redmond 101, Discovery Seminar, 7-Habits Seminar, Leadership Retreat.",
+  "30d":"<strong>Critical milestone:</strong> Insurance enrollment 30-day hard deadline. This is identified as a recurring high-priority gap — system automation of reminders is essential.",
+  "90d":"<strong>Part-time &rarr; Full-time transition:</strong> Must trigger a second, complete onboarding process with a new offer letter. This transition path is not yet systematized and is a documented gap.",
+};
+
+</script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f5f7fa; color: #1a1a2e; }
+  .page-header { background: #1F4E8C; color: #fff; padding: 18px 32px; display: flex; align-items: center; gap: 20px; }
+  .page-header h1 { font-size: 20px; font-weight: 700; letter-spacing: 0.02em; }
+  .page-header p { font-size: 13px; opacity: 0.75; margin-top: 2px; }
+  .logo { font-size: 22px; font-weight: 900; letter-spacing: 0.08em; color: #fff; border: 2px solid rgba(255,255,255,0.5); padding: 4px 10px; border-radius: 4px; }
+  .legend { display: flex; gap: 16px; padding: 10px 32px; background: #fff; border-bottom: 1px solid #dde3ee; flex-wrap: wrap; align-items: center; }
+  .legend-label { font-size: 11px; font-weight: 700; color: #666; text-transform: uppercase; letter-spacing: 0.06em; margin-right: 4px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; }
+  .legend-dot { width: 14px; height: 14px; border-radius: 3px; }
+  .phase-tabs { display: flex; padding: 0 32px; background: #fff; border-bottom: 2px solid #dde3ee; overflow-x: auto; }
+  .phase-tab { padding: 10px 20px; font-size: 12px; font-weight: 700; cursor: pointer; border: none; background: none; color: #777; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.05em; }
+  .phase-tab:hover { color: #1F4E8C; }
+  .phase-tab.active { color: #1F4E8C; border-bottom-color: #1F4E8C; }
+  .flow-container { padding: 28px 32px; overflow-x: auto; }
+  .phase-block { display: none; }
+  .phase-block.active { display: block; }
+  .phase-title { font-size: 15px; font-weight: 800; color: #1F4E8C; margin-bottom: 20px; padding-bottom: 8px; border-bottom: 2px solid #1F4E8C; text-transform: uppercase; letter-spacing: 0.06em; }
+  .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; min-width: 900px; }
+  .team-col { display: flex; flex-direction: column; }
+  .team-header { text-align: center; font-size: 12px; font-weight: 800; padding: 10px 8px; border-radius: 6px 6px 0 0; letter-spacing: 0.05em; text-transform: uppercase; color: #fff; }
+  .team-header.hr   { background: #C00000; }
+  .team-header.cult { background: #375623; }
+  .team-header.it   { background: #1F4E8C; }
+  .team-header.tl   { background: #7030A0; }
+  .team-lane { background: rgba(255,255,255,0.85); border: 1px solid #dde3ee; border-top: none; border-radius: 0 0 6px 6px; padding: 12px 10px; flex: 1; display: flex; flex-direction: column; gap: 8px; min-height: 80px; }
+  .task-card { background: #fff; border-radius: 6px; padding: 9px 11px; font-size: 12px; line-height: 1.45; border-left: 4px solid #ccc; box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: box-shadow 0.15s; }
+  .task-card:hover { box-shadow: 0 3px 8px rgba(0,0,0,0.12); }
+  .task-card.hr   { border-left-color: #C00000; }
+  .task-card.cult { border-left-color: #375623; }
+  .task-card.it   { border-left-color: #1F4E8C; }
+  .task-card.tl   { border-left-color: #7030A0; }
+  .task-card.flag { border-left-color: #E85D24; background: #fff8f6; }
+  .card-title { font-weight: 700; color: #1a1a2e; font-size: 12px; }
+  .card-note  { color: #666; font-size: 11px; margin-top: 3px; font-style: italic; }
+  .flag-badge { display: inline-block; background: #E85D24; color: #fff; font-size: 9px; font-weight: 800; padding: 1px 5px; border-radius: 3px; letter-spacing: 0.06em; margin-bottom: 3px; text-transform: uppercase; }
+  .empty-lane { background: #f9f9f9; border-radius: 4px; border: 1px dashed #ddd; padding: 10px; font-size: 11px; color: #aaa; text-align: center; font-style: italic; flex: 1; display: flex; align-items: center; justify-content: center; }
+  .flow-note { margin-top: 20px; background: #EFF4FF; border: 1px solid #B5D4F4; border-radius: 6px; padding: 12px 16px; font-size: 12px; color: #1F4E8C; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="logo">REDMOND</div>
+  <div>
+    <h1>Associate Onboarding Process Flow</h1>
+    <p>Offer Letter Acceptance &rarr; First 90 Days &nbsp;|&nbsp; DRAFT v1.0 &nbsp;|&nbsp; March 2026</p>
+  </div>
+</div>
+
+<div class="legend">
+  <span class="legend-label">Teams:</span>
+  <div class="legend-item"><div class="legend-dot" style="background:#C00000"></div> HR Team</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#375623"></div> Culture Team</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#1F4E8C"></div> IT Team</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#7030A0"></div> Team Leader / Admin</div>
+  <div class="legend-item" style="margin-left:12px"><div class="legend-dot" style="background:#E85D24"></div> High Priority Item</div>
+</div>
+
+<div class="phase-tabs">
+  <button class="phase-tab active" onclick="showPhase('pre',this)">Pre-Start</button>
+  <button class="phase-tab" onclick="showPhase('d0',this)">Day Zero</button>
+  <button class="phase-tab" onclick="showPhase('2wk',this)">First Two Weeks</button>
+  <button class="phase-tab" onclick="showPhase('30d',this)">First 30 Days</button>
+  <button class="phase-tab" onclick="showPhase('90d',this)">First 90 Days</button>
+</div>
+
+<div class="flow-container" id="flow-container"></div>
+
+<script>
+const PHASES = [
+  { id: "pre", label: "Pre-Start — Offer Accepted to Day Zero" },
+  { id: "d0",  label: "Day Zero — Associate's First Day" },
+  { id: "2wk", label: "First Two Weeks" },
+  { id: "30d", label: "First 30 Days" },
+  { id: "90d", label: "First 90 Days" },
+];
+
+const TEAMS = [
+  { id: "hr",   label: "HR Team" },
+  { id: "cult", label: "Culture Team" },
+  { id: "it",   label: "IT Team" },
+  { id: "tl",   label: "Team Leader / Admin" },
+];
+
+function buildCard(task) {
+  const isFlag = task.flag === true;
+  const cardClass = isFlag ? "task-card flag" : "task-card " + task.team;
+  const badge = isFlag ? '<div class="flag-badge">' + (task.flagLabel || "⚠ Note") + "</div>" : "";
+  const note = task.note ? '<div class="card-note">' + task.note + "</div>" : "";
+  return '<div class="' + cardClass + '">' + badge + '<div class="card-title">' + task.title + "</div>" + note + "</div>";
+}
+
+function buildPhase(phaseId) {
+  const phase = PHASES.find(function(p) { return p.id === phaseId; });
+  var html = '<div class="phase-block' + (phaseId === "pre" ? " active" : "") + '" id="phase-' + phaseId + '">';
+  html += '<div class="phase-title">&rarr; ' + phase.label + "</div>";
+  html += '<div class="team-grid">';
+  TEAMS.forEach(function(team) {
+    var tasks = TASKS.filter(function(t) { return t.phase === phaseId && t.team === team.id; });
+    html += '<div class="team-col">';
+    html += '<div class="team-header ' + team.id + '">' + team.label + "</div>";
+    html += '<div class="team-lane">';
+    if (tasks.length === 0) {
+      html += '<div class="empty-lane">No tasks this phase</div>';
+    } else {
+      tasks.forEach(function(t) { html += buildCard(t); });
+    }
+    html += "</div></div>";
+  });
+  html += "</div>";
+  var note = PHASE_NOTES[phaseId];
+  if (note) html += '<div class="flow-note">' + note + "</div>";
+  html += "</div>";
+  return html;
+}
+
+var container = document.getElementById("flow-container");
+PHASES.forEach(function(p) { container.innerHTML += buildPhase(p.id); });
+
+function showPhase(id, btn) {
+  document.querySelectorAll(".phase-block").forEach(function(b) { b.classList.remove("active"); });
+  document.querySelectorAll(".phase-tab").forEach(function(t) { t.classList.remove("active"); });
+  document.getElementById("phase-" + id).classList.add("active");
+  btn.classList.add("active");
+}
+</script>
+</body>
+</html>
