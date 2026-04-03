@@ -24,7 +24,7 @@
 //
 //  TEAMS
 //    "hr"   = HR Team
-//    "cult" = Culture Team
+//    "cult" = Day Zero Team
 //    "it"   = IT Team
 //    "tl"   = Team Leader / Admin Group
 // ============================================================
@@ -38,19 +38,19 @@ const TASKS = [
   { phase: "pre", team: "hr", title: "Set up login ID & Password, and Redmond email", note: "Includes MS365, Communicate to Team Leader / Currently done in on-prem system and online" },
   { phase: "pre", team: "hr", title: "Send notification to IT team if AD group is not configured correctly", note: "Step added by Paul"},
   { phase: "pre", team: "hr", title: "Send welcome / credentials email", note: "CC: Team Lead + Day Zero group" },
-  { phase: "pre", team: "hr", title: "Add associate to Paylocity and Paylocity SSO Group", note: "Automated email is sent to Associate to complete I-9, W-4, etc." },
+  { phase: "pre", team: "hr", title: "Add associate to Paylocity, Navigator, and Time / add to Paylocity SSO Group", note: "Automated email is sent to Associate to complete I-9, W-4, etc." },
   { phase: "pre", team: "hr", title: "Confirm start date with Team Lead", note: "" },
   { phase: "pre", team: "hr", title: "Create associate in Paylocity, Navigator, and Time", note: "" },
   { phase: "pre", team: "hr", title: "Send benefits enrollment info", note: "30-day window — some associates miss this", flag: true, flagLabel: "⚠ High Priority" },
  
-  // Culture
+  // Day Zero Team
   { phase: "pre", team: "cult", title: "Receive offer acceptance notification", note: "Currently via CC email — target: auto-trigger" },
   { phase: "pre", team: "cult", title: "Prepare Day Zero itinerary", note: "Parking map, rendezvous point, schedule" },
   { phase: "pre", team: "cult", title: "Obtain associate's phone number", note: "" },
   { phase: "pre", team: "cult", title: "Send personalized welcome text", note: "Date, time, parking, dress code, what to bring" },
   { phase: "pre", team: "cult", title: "Send Day Zero calendar invite", note: "CC Team Lead on invite" },
   { phase: "pre", team: "cult", title: "Prepare swag bag", note: "" },
-  { phase: "pre", team: "cult", title: "Assign Day Zero facilitator", note: "Culture team or trained local facilitator, use standard powerpoint" },
+  { phase: "pre", team: "cult", title: "Assign Day Zero facilitator", note: "Day Zero Team or trained local facilitator, use standard powerpoint" },
 
   // IT
   { phase: "pre", team: "it", title: "Receive new associate notification", note: "From HR via group chat" },
@@ -82,7 +82,7 @@ const TASKS = [
   { phase: "d0", team: "hr", title: "Communicate 30-day insurance enrollment window", note: "Associates sometimes miss this deadline", flag: true, flagLabel: "⚠ High Priority" },
   { phase: "d0", team: "hr", title: "Distribute benefits guide", note: "" },
 
-  // Culture
+  // Day Zero Team
   { phase: "d0", team: "cult", title: "Welcome associate; deliver swag bag", note: "" },
   { phase: "d0", team: "cult", title: "Conduct full facility tour", note: "Office, warehouse, store, restrooms, gym" },
   { phase: "d0", team: "cult", title: "Deliver Mission, Vision & Values presentation", note: "Standardized Day Zero deck with benefits slides" },
@@ -115,7 +115,7 @@ const TASKS = [
   { phase: "2wk", team: "hr", title: "Confirm direct deposit established", note: "" },
   { phase: "2wk", team: "hr", title: "Address any payroll questions", note: "" },
 
-  // Culture
+  // Day Zero Team
   { phase: "2wk", team: "cult", title: "Schedule & conduct 2-week follow-up meeting", note: "" },
   { phase: "2wk", team: "cult", title: "Review benefits enrollment status", note: "Remind of 30-day deadline" },
   { phase: "2wk", team: "cult", title: "Personal invitations to programs", note: "Discovery Seminar, 7-Habits, Leadership Retreat" },
@@ -140,7 +140,7 @@ const TASKS = [
   { phase: "30d", team: "hr", title: "Confirm all HR documents in employee file", note: "" },
   { phase: "30d", team: "hr", title: "Record job certifications in Data Store", note: "" },
 
-  // Culture
+  // Day Zero Team
   { phase: "30d", team: "cult", title: "Confirm Redmond 101 completion", note: "" },
   { phase: "30d", team: "cult", title: "Follow up on seminar registrations", note: "" },
   { phase: "30d", team: "cult", title: "Gather Day Zero experience feedback", note: "" },
@@ -159,7 +159,7 @@ const TASKS = [
   { phase: "90d", team: "hr", title: "Confirm all role certifications on file", note: "" },
   { phase: "90d", team: "hr", title: "Review part-time to full-time eligibility", note: "If applicable: trigger new offer letter + 2nd onboarding" },
  
-  // Culture
+  // Day Zero Team
   { phase: "90d", team: "cult", title: "Verify program attendance / scheduling", note: "Discovery, 7-Habits, Leadership Retreat" },
   { phase: "90d", team: "cult", title: "Confirm ongoing Redmond University access", note: "" },
 
@@ -181,9 +181,9 @@ const TASKS = [
 // ============================================================
 
 const PHASE_NOTES = {
-  pre:  "<strong>Trigger:</strong> Offer letter signed &rarr; Automated notifications sent simultaneously to HR, IT, Culture Team, and Team Leader. Currently manual via CC'd emails — a key pain point to address with a system solution.",
+  pre:  "<strong>Trigger:</strong> Offer letter signed &rarr; Automated notifications sent simultaneously to HR, IT, Day Zero Team, and Team Leader. Currently manual via CC'd emails — a key pain point to address with a system solution.",
   d0:   "<strong>Core Day Zero elements (universal):</strong> Culture intro (values, mission, vision) &bull; HR setup (Paylocity, Navigator, Time) &bull; IT access (Teams, email, building entry) &bull; Facility tour &bull; Team lunch. Location-specific variants are permitted around this universal core.",
-  "2wk":"<strong>2-Week Follow-up items (Culture/HR-led):</strong> Benefits check &bull; Time & payroll confirmation &bull; Sign-ups for Redmond 101, Discovery Seminar, 7-Habits Seminar, Leadership Retreat.",
+  "2wk":"<strong>2-Week Follow-up items (Day Zero Team/HR-led):</strong> Benefits check &bull; Time & payroll confirmation &bull; Sign-ups for Redmond 101, Discovery Seminar, 7-Habits Seminar, Leadership Retreat.",
   "30d":"<strong>Critical milestone:</strong> Insurance enrollment 30-day hard deadline. This is identified as a recurring high-priority gap — system automation of reminders is essential.",
   "90d":"<strong>Part-time &rarr; Full-time transition:</strong> Must trigger a second, complete onboarding process with a new offer letter. This transition path is not yet systematized and is a documented gap.",
 };
@@ -243,7 +243,7 @@ const PHASE_NOTES = {
 <div class="legend">
   <span class="legend-label">Teams:</span>
   <div class="legend-item"><div class="legend-dot" style="background:#C00000"></div> HR Team</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#375623"></div> Culture Team</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#375623"></div> Day Zero Team</div>
   <div class="legend-item"><div class="legend-dot" style="background:#1F4E8C"></div> IT Team</div>
   <div class="legend-item"><div class="legend-dot" style="background:#7030A0"></div> Team Leader / Admin</div>
   <div class="legend-item" style="margin-left:12px"><div class="legend-dot" style="background:#E85D24"></div> High Priority Item</div>
@@ -270,7 +270,7 @@ const PHASES = [
 
 const TEAMS = [
   { id: "hr",   label: "HR Team" },
-  { id: "cult", label: "Culture Team" },
+  { id: "cult", label: "Day Zero Team" },
   { id: "it",   label: "IT Team" },
   { id: "tl",   label: "Team Leader / Admin" },
 ];
