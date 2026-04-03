@@ -33,10 +33,10 @@ const TASKS = [
 
   // HR
   { phase: "pre", team: "hr", title: "1. Monitor offer letter signing", note: "Manual today — target: automated trigger" },
-  { phase: "pre", team: "hr", title: "2. Confirm start date with Team Lead", note: "" },
+  { phase: "pre", team: "hr", title: "2. Confirm start date with Team Leader/Admin Group", note: "" },
   { phase: "pre", team: "hr", title: "3. Set up user credentials", note: "Login ID & Password | Email & MS365 | Currently done in on-prem system and online" },
-  { phase: "pre", team: "hr", title: "4. Send notification to IT team if AD group is not configured correctly", note: "Step added by Paul"},
-  { phase: "pre", team: "hr", title: "5. Send welcome / credentials email", note: "Include benefits guide | Notify Team Lead + Day Zero group that credentials are sent" },
+  { phase: "pre", team: "hr", title: "4. Send notification to IT team if AD group is not configured correctly (people need to be added/removed from the team)", note: "Step added by Paul"},
+  { phase: "pre", team: "hr", title: "5. Send welcome / credentials email", note: "Include benefits guide | Notify Team Leader/Admin Group + Day Zero group that credentials are sent" },
   { phase: "pre", team: "hr", title: "6. Add associate to Paylocity & Benenfits signup", note: "Paylocity | Navigator | Time | Paylocity SSO Group | Automated email is sent to Associate to complete I-9, W-4, etc." },
  
   // Day Zero Team
@@ -66,7 +66,7 @@ const TASKS = [
   { phase: "d0", team: "hr", title: "1. Be available for HR questions", note: "" },
 
   // Day Zero Team
-  { phase: "d0", team: "cult", title: "1. Hold Day Zero meeting", note: "Present mission, vision & values (standard slide deck) | Intro to benefits (stress 30-day sign-up window) | Demo Time clock-in/out process/discuss time verification | Demo building door access | Review associate discounts & orders | Review Teams: Pin key channels | Demo paylocity login | Introduce Redmond University | Deliver swag bag | Faciliy tour" },
+  { phase: "d0", team: "cult", title: "1. Hold Day Zero meeting", note: "Present mission, vision & values (standard slide deck) | Brief intro to benefits (stress 30-day sign-up window) | Demo Time clock-in/out process, discuss time verification | Demo building door access, work with IT to get them set up | Review associate discounts & orders | Review Teams: Pin key channels | Demo paylocity login | Introduce Redmond University | Deliver swag bag | Faciliy tour" },
   { phase: "d0", team: "cult", title: "2. Send invite for monthly benefits meeting with HR", note: "" }, 
   { phase: "d0", team: "cult", title: "3. Introduction to programs", note: "Discovery Seminar, 7-Habits, Leadership Retreat" },
   { phase: "d0", team: "cult", title: "4. Team lunch", note: "" },
@@ -79,18 +79,18 @@ const TASKS = [
   // Team Leader/Admin Group
   { phase: "d0", team: "tl", title: "1. Attend Day Zero mtg (or send a rep)", note: "" },
   { phase: "d0", team: "tl", title: "2. Introduce associate to the team", note: "" },
-  { phase: "d0", team: "tl", title: "3. Highlight key tasks for 1st 30 days", note: "Confirm access to team-specific tools | Confirm setup of team-specific apps | Inform associate of training schedule | Sign-up for Redmond 101 in Redmond University" },
+  { phase: "d0", team: "tl", title: "3. Highlight key tasks for first 30 days", note: "Confirm access to team-specific tools | Confirm setup of team-specific apps | Inform associate of training schedule | Sign-up for Redmond 101 in Redmond University" },
 
   // ── FIRST 30 DAYS ─────────────────────────────────────────
 
   // HR
-  { phase: "30d", team: "hr", title: "1. Hold monthly benefits meeting for all new associates", note: "Go over benefits in detail and answer questions | Demo Paylocity login | Talk about Redmond activities and how to sign-up | Talk about product and merch allowance" },
+  { phase: "30d", team: "hr", title: "1. Hold monthly benefits meeting for all new associates (record for those that cannot make it)", note: "Go over benefits in detail and answer questions | Demo Paylocity login | Talk about Redmond activities and how to sign-up | Talk about product and merch allowance" },
   // { phase: "30d", team: "hr", title: "Verify insurance enrollment completed", note: "30-day window closes — flag any non-enrollment", flag: true, flagLabel: "⚠ Hard Deadline" },
-  { phase: "30d", team: "hr", title: "2. Confirm all HR documents in employee file", note: "Work with Team Leader/Admin Group to record any certifications or trainings" },
+  { phase: "30d", team: "hr", title: "2. Confirm all HR documents in employee file", note: "Work with Team Leader/Admin Group to record any certifications or trainings in Paylocity on associate record" },
 
   // Day Zero Team
   { phase: "30d", team: "cult", title: "1. Confirm Redmond 101 completion", note: "" },
-  { phase: "30d", team: "cult", title: "2. Follow up on seminar registrations", note: "Discovery Seminar, 7-Habits, Leadership Retreat" },
+
   { phase: "30d", team: "cult", title: "3. Gather Day Zero experience feedback", note: "" },
 
   // IT
@@ -98,7 +98,8 @@ const TASKS = [
 
   // Team Leader/Admin Group
   { phase: "30d", team: "tl", title: "1. Hold a discovery check-in", note: "Include a member of the Day Zero/Culture team" },
-  { phase: "30d", team: "tl", title: "2. Record safety training & certifications in paylocity", note: "" },
+  { phase: "30d", team: "tl", title: "2. Follow up on seminar registrations", note: "Discovery Seminar, 7-Habits, Leadership Retreat" },
+  { phase: "30d", team: "tl", title: "2. Record safety training & certifications in paylocity", note: "Send information to the HR team" },
 
   
 ];
@@ -164,7 +165,7 @@ const PHASE_NOTES = {
   <div class="logo">REDMOND</div>
   <div>
     <h1>Associate Onboarding Process Flow</h1>
-    <p>Offer Letter Acceptance &rarr; First 90 Days &nbsp;|&nbsp; DRAFT v1.0 &nbsp;|&nbsp; March 2026</p>
+    <p>Offer Letter Acceptance &rarr; First 30 Days &nbsp;|&nbsp; DRAFT v1.1 &nbsp;|&nbsp; April 2026</p>
   </div>
 </div>
 
