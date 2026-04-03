@@ -16,7 +16,7 @@
 //    flagLabel : text on the badge, e.g. "⚠ High Priority" (optional, defaults to "⚠ Note")
 //
 //  PHASES
-//    "pre"  = Pre-Start (offer accepted to Day Zero)
+//    "pre"  = Pre-Start (from offer accepted up to pre-Day Zero)
 //    "d0"   = Day Zero (first day)
 //    "30d"  = First 30 Days
 //
@@ -89,17 +89,15 @@ const TASKS = [
   { phase: "30d", team: "hr", title: "2. Confirm all HR documents in employee file", note: "Work with Team Leader/Admin Group to record any certifications or trainings in Paylocity on associate record" },
 
   // Day Zero Team
-  { phase: "30d", team: "cult", title: "1. Confirm Redmond 101 completion", note: "" },
-
-  { phase: "30d", team: "cult", title: "3. Gather Day Zero experience feedback", note: "" },
+  { phase: "30d", team: "cult", title: "1. Gather Day Zero experience feedback", note: "" },
 
   // IT
   // { phase: "30d", team: "it", title: "1. Resolve any outstanding IT onboarding tickets", note: "" },
 
   // Team Leader/Admin Group
-  { phase: "30d", team: "tl", title: "1. Hold a discovery check-in", note: "Include a member of the Day Zero/Culture team" },
+  { phase: "30d", team: "tl", title: "1. Hold a discovery check-in", note: "Include a member of the Day Zero/Culture team | Confirm Redmond 101 completion" },
   { phase: "30d", team: "tl", title: "2. Follow up on seminar registrations", note: "Discovery Seminar, 7-Habits, Leadership Retreat" },
-  { phase: "30d", team: "tl", title: "2. Record safety training & certifications in paylocity", note: "Send information to the HR team" },
+  { phase: "30d", team: "tl", title: "3. Record safety training & certifications in paylocity", note: "Send information to the HR team" },
 
   
 ];
@@ -188,7 +186,7 @@ const PHASE_NOTES = {
 
 <script>
 const PHASES = [
-  { id: "pre", label: "Pre-Start — Offer Accepted to Day Zero" },
+  { id: "pre", label: "Pre-Start — Offer Accepted up to pre-Day Zero" },
   { id: "d0",  label: "Day Zero — Associate's First Day" },
   { id: "30d", label: "First 30 Days" },
 ];
