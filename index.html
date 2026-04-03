@@ -35,11 +35,12 @@ const TASKS = [
 
   // HR
   { phase: "pre", team: "hr", title: "Monitor offer letter signing", note: "Manual today — target: automated trigger" },
-  { phase: "pre", team: "hr", title: "Set up login ID & Password, and Redmond email", note: "Includes MS365, Communicate to Team Leader / Currently done in on-prem system and online" },
-  { phase: "pre", team: "hr", title: "Send notification to IT team if AD group is not configured correctly", note: "Step added by Paul"},
-  { phase: "pre", team: "hr", title: "Send welcome / credentials email", note: "CC: Team Lead + Day Zero group" },
-  { phase: "pre", team: "hr", title: "Add associate to Paylocity, Navigator, and Time / add to Paylocity SSO Group", note: "Automated email is sent to Associate to complete I-9, W-4, etc." },
   { phase: "pre", team: "hr", title: "Confirm start date with Team Lead", note: "" },
+  { phase: "pre", team: "hr", title: "Set up user credentials", note: "Login ID & Password | Email & MS365 | Currently done in on-prem system and online" },
+  { phase: "pre", team: "hr", title: "Send notification to IT team if AD group is not configured correctly", note: "Step added by Paul"},
+  { phase: "pre", team: "hr", title: "Send welcome / credentials email", note: "Notify Team Lead + Day Zero group" },
+  { phase: "pre", team: "hr", title: "Add associate to Paylocity & Benenfits signup", note: "Paylocity | Navigator | Time | Paylocity SSO Group | Automated email is sent to Associate to complete I-9, W-4, etc." },
+ 
  
   // Day Zero Team
   { phase: "pre", team: "cult", title: "Receive offer acceptance notification", note: "Currently via CC email — target: auto-trigger" },
@@ -223,6 +224,8 @@ const PHASE_NOTES = {
   .task-card.flag { border-left-color: #E85D24; background: #fff8f6; }
   .card-title { font-weight: 700; color: #1a1a2e; font-size: 12px; }
   .card-note  { color: #666; font-size: 11px; margin-top: 3px; font-style: italic; }
+  ul.card-note { padding-left: 14px; margin: 3px 0 0 0; }
+  ul.card-note li { margin-bottom: 2px; }
   .flag-badge { display: inline-block; background: #E85D24; color: #fff; font-size: 9px; font-weight: 800; padding: 1px 5px; border-radius: 3px; letter-spacing: 0.06em; margin-bottom: 3px; text-transform: uppercase; }
   .empty-lane { background: #f9f9f9; border-radius: 4px; border: 1px dashed #ddd; padding: 10px; font-size: 11px; color: #aaa; text-align: center; font-style: italic; flex: 1; display: flex; align-items: center; justify-content: center; }
   .flow-note { margin-top: 20px; background: #EFF4FF; border: 1px solid #B5D4F4; border-radius: 6px; padding: 12px 16px; font-size: 12px; color: #1F4E8C; line-height: 1.6; }
@@ -277,7 +280,11 @@ function buildCard(task) {
   const isFlag = task.flag === true;
   const cardClass = isFlag ? "task-card flag" : "task-card " + task.team;
   const badge = isFlag ? '<div class="flag-badge">' + (task.flagLabel || "⚠ Note") + "</div>" : "";
-  const note = task.note ? '<div class="card-note">' + task.note + "</div>" : "";
+  const note = task.note
+    ? (task.note.includes("|")
+        ? '<ul class="card-note">' + task.note.split("|").map(function(n) { return "<li>" + n.trim() + "</li>"; }).join("") + "</ul>"
+        : '<div class="card-note">' + task.note + "</div>")
+    : "";
   return '<div class="' + cardClass + '">' + badge + '<div class="card-title">' + task.title + "</div>" + note + "</div>";
 }
 
